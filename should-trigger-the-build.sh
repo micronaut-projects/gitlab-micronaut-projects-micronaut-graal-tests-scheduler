@@ -16,7 +16,7 @@ echo "Micronaut last commit: $MN_LAST_COMMIT"
 
 if [ "$GRAAL_CURRENT_COMMIT" != "$GRAAL_LAST_COMMIT" ] || [ "$MN_CURRENT_COMMIT" != "$MN_LAST_COMMIT" ]; then
     echo "Something changed, triggering the build..."
-    curl -X POST -F token=$TOKEN -F ref=$CI_BUILD_REF_NAME https://gitlab.com/api/v4/projects/10315337/trigger/pipeline
+    curl -X POST -F token=$JOB_TRIGGER_TOKEN -F ref=$CI_BUILD_REF_NAME https://gitlab.com/api/v4/projects/10315337/trigger/pipeline
 
 
     # Commit the new hashes to the same branch
