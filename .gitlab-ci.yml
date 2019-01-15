@@ -1,0 +1,5 @@
+
+check-repositories:
+  script:
+    - apt update && apt install -y jq
+    - ./should-trigger-the-build.sh
