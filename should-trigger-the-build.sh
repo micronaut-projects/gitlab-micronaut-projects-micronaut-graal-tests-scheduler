@@ -1,7 +1,7 @@
 #!/bin/bash
 
-curl https://api.github.com/repos/oracle/graal/commits/master | jq '{sha: .sha}' > .tmp_graal
-curl https://api.github.com/repos/micronaut-projects/micronaut-core/commits/master | jq '{sha: .sha}' > .tmp_micronaut
+curl -s https://api.github.com/repos/oracle/graal/commits/master | jq '{sha: .sha}' > .tmp_graal
+curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/master | jq '{sha: .sha}' > .tmp_micronaut
 
 GRAAL_CURRENT_COMMIT=$(cat .graal_master_commit)
 GRAAL_LAST_COMMIT=$(cat .tmp_graal)
@@ -16,7 +16,7 @@ echo "Micronaut last commit: $MN_LAST_COMMIT"
 
 if [ "$GRAAL_CURRENT_COMMIT" != "$GRAAL_LAST_COMMIT" ] || [ "$MN_CURRENT_COMMIT" != "$MN_LAST_COMMIT" ]; then
     echo "Something changed, triggering the build..."
-    curl -X POST \
+    curl -s -X POST \
          -F token=$JOB_TRIGGER_TOKEN \
          -F ref=$CI_BUILD_REF_NAME \
          -F "variables[GRAAL_CURRENT_COMMIT]=$GRAAL_CURRENT_COMMIT" \
