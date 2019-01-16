@@ -2,5 +2,5 @@
 check-repositories:
   image: alpine:3.8
   script:
-    - apk add curl jq
+    - apk add curl jq bash
     - ./should-trigger-the-build.sh
