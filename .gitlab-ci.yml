@@ -1,5 +1,6 @@
 
 check-repositories:
+  image: alpine:3.8
   script:
-    - apt update && apt install -y jq
+    - apk add curl jq
     - ./should-trigger-the-build.sh
