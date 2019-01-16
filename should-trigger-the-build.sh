@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 curl -s https://api.github.com/repos/oracle/graal/commits/master | jq '{sha: .sha}' > .tmp_graal
 curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/master | jq '{sha: .sha}' > .tmp_micronaut
