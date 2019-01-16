@@ -14,7 +14,7 @@ echo "Graal last commit: $GRAAL_LAST_COMMIT"
 echo "Micronaut current commit: $MN_CURRENT_COMMIT"
 echo "Micronaut last commit: $MN_LAST_COMMIT"
 
-if [ "$GRAAL_CURRENT_COMMIT" != "$GRAAL_LAST_COMMIT" ] || [ "$MN_CURRENT_COMMIT" != "$MN_LAST_COMMIT" ]; then
+if [ "$GRAAL_CURRENT_COMMIT" != "$GRAAL_LAST_COMMIT" ] || [ "$MN_CURRENT_COMMIT" != "$MN_LAST_COMMIT" ] || [ "$FORCE" == "true" ] ; then
     echo "Something changed, triggering the build..."
     curl -s -X POST \
          -F token=$JOB_TRIGGER_TOKEN \
