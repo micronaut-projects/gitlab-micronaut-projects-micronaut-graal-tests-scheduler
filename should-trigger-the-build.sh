@@ -1,7 +1,9 @@
 #!/bin/bash
 
+MICRONAUT_BRANCH=1.1.x
+
 curl -s https://api.github.com/repos/oracle/graal/commits/master | jq -r .sha > .tmp_graal
-curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/master | jq -r .sha > .tmp_micronaut
+curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/$MICRONAUT_BRANCH | jq -r .sha > .tmp_micronaut
 
 GRAAL_CURRENT_COMMIT=$(cat .graal_master_commit)
 GRAAL_LAST_COMMIT=$(cat .tmp_graal)
