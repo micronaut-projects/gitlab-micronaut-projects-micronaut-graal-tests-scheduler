@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MICRONAUT_BRANCH=1.1.x
+MICRONAUT_BRANCH=master
 
 curl -s https://api.github.com/repos/oracle/graal/commits/master | jq -r .sha > .tmp_graal
 curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/$MICRONAUT_BRANCH | jq -r .sha > .tmp_micronaut
