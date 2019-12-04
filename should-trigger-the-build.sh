@@ -5,26 +5,26 @@ MICRONAUT_BRANCH=1.2.x
 curl -s https://api.github.com/repos/oracle/graal/commits/master | jq -r .sha > .tmp_graal
 curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/$MICRONAUT_BRANCH | jq -r .sha > .tmp_micronaut
 
-GRAAL_CURRENT_COMMIT=$(cat .graal_master_commit)
-GRAAL_LAST_COMMIT=$(cat .tmp_graal)
+GRAAL_PREVIOUS_COMMIT=$(cat .graal_master_commit)
+GRAAL_NEW_COMMIT=$(cat .tmp_graal)
 
-MN_CURRENT_COMMIT=$(cat .mn_master_commit)
-MN_LAST_COMMIT=$(cat .tmp_micronaut)
+MN_PREVIOUS_COMMIT=$(cat .mn_master_commit)
+MN_NEW_COMMIT=$(cat .tmp_micronaut)
 
-echo "Graal current commit: $GRAAL_CURRENT_COMMIT"
-echo "Graal last commit: $GRAAL_LAST_COMMIT"
-echo "Micronaut current commit: $MN_CURRENT_COMMIT"
-echo "Micronaut last commit: $MN_LAST_COMMIT"
+echo "Graal previous commit: $GRAAL_PREVIOUS_COMMIT"
+echo "Graal new commit: $GRAAL_NEW_COMMIT"
+echo "Micronaut previous commit: $MN_PREVIOUS_COMMIT"
+echo "Micronaut new commit: $MN_NEW_COMMIT"
 
-if [ "$GRAAL_CURRENT_COMMIT" != "$GRAAL_LAST_COMMIT" ] || [ "$MN_CURRENT_COMMIT" != "$MN_LAST_COMMIT" ] || [ "$MANUAL" == "true" ] ; then
+if [ "$GRAAL_PREVIOUS_COMMIT" != "$GRAAL_NEW_COMMIT" ] || [ "$MN_PREVIOUS_COMMIT" != "$MN_NEW_COMMIT" ] || [ "$MANUAL" == "true" ] ; then
     echo "Something changed, triggering the build..."
     curl -s -X POST \
          -F token=$JOB_TRIGGER_TOKEN \
          -F ref=$CI_BUILD_REF_NAME \
-         -F "variables[GRAAL_CURRENT_COMMIT]=$GRAAL_CURRENT_COMMIT" \
-         -F "variables[GRAAL_LAST_COMMIT]=$GRAAL_LAST_COMMIT" \
-         -F "variables[MN_CURRENT_COMMIT]=$MN_CURRENT_COMMIT" \
-         -F "variables[MN_LAST_COMMIT]=$MN_LAST_COMMIT" \
+         -F "variables[GRAAL_PREVIOUS_COMMIT]=$GRAAL_PREVIOUS_COMMIT" \
+         -F "variables[GRAAL_NEW_COMMIT]=$GRAAL_NEW_COMMIT" \
+         -F "variables[MN_PREVIOUS_COMMIT]=$MN_PREVIOUS_COMMIT" \
+         -F "variables[MN_NEW_COMMIT]=$MN_NEW_COMMIT" \
          https://gitlab.com/api/v4/projects/10315337/trigger/pipeline
 
 
