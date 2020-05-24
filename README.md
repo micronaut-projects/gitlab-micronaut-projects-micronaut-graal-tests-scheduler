@@ -9,4 +9,6 @@ To do that it is necessary to generate a ssh private/public key pair and:
 
 To trigger the pipeline execution in the main repository it is also necessary to define the "Environment variable" `JOB_TRIGGER_TOKEN`.
 
-There is also an [scheduled job](https://gitlab.com/micronaut-projects/micronaut-graal-tests-scheduler/pipeline_schedules) (link only visible by members of the project) that is triggered every hour to check if there are new changes in either GraalVM or Micronaut repositories and trigger the pipeline in the main repository.
+There is also an [scheduled job](https://gitlab.com/micronaut-projects/micronaut-graal-tests-scheduler/pipeline_schedules) (link only visible by members of the project) per branch that is triggered every hour to check if there are new changes in either GraalVM or Micronaut repositories and trigger the pipeline in the main repository.
+
+![scheduling-pipelines](scheduling-pipelines.png)
