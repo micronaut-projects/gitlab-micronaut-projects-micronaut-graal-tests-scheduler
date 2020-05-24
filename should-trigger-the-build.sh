@@ -1,14 +1,15 @@
 #!/bin/bash
 
 MICRONAUT_BRANCH=1.3.x
+GRAALVM_BRANCH=master
 
-curl -s https://api.github.com/repos/oracle/graal/commits/master | jq -r .sha > .tmp_graal
+curl -s https://api.github.com/repos/oracle/graal/commits/$GRAALVM_BRANCH | jq -r .sha > .tmp_graalvm
 curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/$MICRONAUT_BRANCH | jq -r .sha > .tmp_micronaut
 
-GRAAL_PREVIOUS_COMMIT=$(cat .graal_master_commit)
-GRAAL_NEW_COMMIT=$(cat .tmp_graal)
+GRAAL_PREVIOUS_COMMIT=$(cat .graalvm_commit)
+GRAAL_NEW_COMMIT=$(cat .tmp_graalvm)
 
-MN_PREVIOUS_COMMIT=$(cat .mn_master_commit)
+MN_PREVIOUS_COMMIT=$(cat .mn_commit)
 MN_NEW_COMMIT=$(cat .tmp_micronaut)
 
 echo "Graal previous commit: $GRAAL_PREVIOUS_COMMIT"
@@ -38,10 +39,10 @@ if [ "$GRAAL_PREVIOUS_COMMIT" != "$GRAAL_NEW_COMMIT" ] || [ "$MN_PREVIOUS_COMMIT
     git config user.email "$(echo $GITLAB_USER_EMAIL)"
     git config user.name "$(echo $GITLAB_USER_NAME)"
 
-    cp .tmp_graal .graal_master_commit
-    cp .tmp_micronaut .mn_master_commit
+    cp .tmp_graalvm .graalvm_commit
+    cp .tmp_micronaut .mn_commit
 
-    git add .graal_master_commit .mn_master_commit
+    git add .graalvm_commit .mn_commit
     git commit -m "[ci skip] Update Micronaut and GraalVM latest commits"
 
     git remote set-url --push origin $(perl -pe 's#.*@(.+?(\:\d+)?)/#git@\1:#' <<< $CI_REPOSITORY_URL)
