@@ -28,13 +28,6 @@ if [ "$GRAAL_PREVIOUS_COMMIT" != "$GRAAL_NEW_COMMIT" ] || [ "$MN_PREVIOUS_COMMIT
          -F "variables[MN_NEW_COMMIT]=$MN_NEW_COMMIT" \
          https://gitlab.com/api/v4/projects/10315337/trigger/pipeline
 
-
-    # Commit the new hashes to the same branch
-    export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i .ssh/id_rsa-gitlab-ci"
-
-    mkdir -pvm 0700 .ssh
-    echo "$SSH_PRIVATE_KEY" > .ssh/id_rsa-gitlab-ci
-    chmod 0400 .ssh/id_rsa-gitlab-ci
     git checkout $CI_BUILD_REF_NAME
     git config user.email "$(echo $GITLAB_USER_EMAIL)"
     git config user.name "$(echo $GITLAB_USER_NAME)"
@@ -45,6 +38,6 @@ if [ "$GRAAL_PREVIOUS_COMMIT" != "$GRAAL_NEW_COMMIT" ] || [ "$MN_PREVIOUS_COMMIT
     git add .graalvm_commit .mn_commit
     git commit -m "[ci skip] Update Micronaut and GraalVM latest commits"
 
-    git remote set-url --push origin $(perl -pe 's#.*@(.+?(\:\d+)?)/#git@\1:#' <<< $CI_REPOSITORY_URL)
+    git remote set-url --push origin "${CI_PUSH_REPO}"
     git push --all
 fi;
