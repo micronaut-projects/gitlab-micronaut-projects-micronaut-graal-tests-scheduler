@@ -36,7 +36,7 @@ if [ "$GRAAL_PREVIOUS_COMMIT" != "$GRAAL_NEW_COMMIT" ] || [ "$MN_PREVIOUS_COMMIT
     cp .tmp_micronaut .mn_commit
 
     git add .graalvm_commit .mn_commit
-    git commit -m "[ci skip] Update Micronaut and GraalVM latest commits"
+    git commit -m "[ci skip] Update Micronaut and GraalVM latest commits ${MICRONAUT_BRANCH}"
 
     git remote set-url --push origin "${CI_PUSH_REPO}"
     git push --all
