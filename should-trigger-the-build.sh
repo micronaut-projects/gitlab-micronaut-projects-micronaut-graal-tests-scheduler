@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MICRONAUT_BRANCH=2.2.x
-GRAALVM_BRANCH="release/graal-vm/20.3"
+GRAALVM_BRANCH="master"
 
 curl -s https://api.github.com/repos/oracle/graal/commits/$GRAALVM_BRANCH | jq -r .sha > .tmp_graalvm
 curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/$MICRONAUT_BRANCH | jq -r .sha > .tmp_micronaut
