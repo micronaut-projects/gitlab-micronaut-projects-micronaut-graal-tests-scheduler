@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MICRONAUT_BRANCH=3.1.x
+MICRONAUT_BRANCH=3.2.x
 
 curl -s https://api.github.com/repos/micronaut-projects/micronaut-core/commits/$MICRONAUT_BRANCH | jq -r .sha > .tmp_micronaut
 
