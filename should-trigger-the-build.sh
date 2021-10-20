@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MICRONAUT_BRANCH=3.1.x
+MICRONAUT_BRANCH=3.2.x
 GRAALVM_BRANCH="master"
 
 curl -s https://api.github.com/repos/oracle/graal/commits/$GRAALVM_BRANCH | jq -r .sha > .tmp_graalvm
