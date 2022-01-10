@@ -14,13 +14,13 @@ repository that includes your username and the access token generated. For examp
 To trigger the pipeline execution in the main repository it is also necessary to define the "Environment variable" `JOB_TRIGGER_TOKEN`.
 
 There are also some [scheduled jobs](https://gitlab.com/micronaut-projects/micronaut-graal-tests-scheduler/pipeline_schedules)
-(link only visible by members of the project) per branch and GraalVM release, that is triggered every hour to check if
+(link only visible by members of the project) per branch and GraalVM release, that are triggered one per day to check if
 there are new changes in either GraalVM or Micronaut repositories and trigger the pipeline in the main repository.
 
 The prefix of the branch is the Micronaut version that the job is related to. The suffix of the branch is the GraalVM version:
 
-- `dev`: GraalVM master branch (i.e: `21.0.0-dev`)
-- `release`: Next GraalVM release (i.e: `20.3.0-dev`)
-- `stable`: Latest GraalVM stable release (i.e: `20.3.0`)
+- `dev`: GraalVM master branch (i.e: `22.1.0-dev`)
+- `prerelease`: Next GraalVM release (i.e: `22.0.0-dev`)
+- `stable`: Latest GraalVM stable release (i.e: `21.3.0`)
 
 ![scheduling-pipelines](scheduling-pipelines.png)
